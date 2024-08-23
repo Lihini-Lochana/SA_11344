@@ -6,7 +6,9 @@ public abstract class Beverages {
         brew();
         pourInCup();
         addCondiments();
-        addExtras();
+        if(wantsExtras) {
+            addExtras();
+        }
     }
     abstract void addExtras();
 
