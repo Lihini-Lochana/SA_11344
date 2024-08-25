@@ -3,17 +3,12 @@ package design.pattern.command;
 public class RemoteControl {
     Command [] onCommands;
     Command [] offCommands;
+    Command undoCommand;
 
     public RemoteControl(int slots) {
-        onCommands = new Command[7];
-        offCommands = new Command[7];
+        onCommands = new Command[slots];
+        offCommands = new Command[slots];
 
-
-        for (int i = 0; i < 7; i++) {
-            onCommands[i] = null;
-            offCommands[i] = null;
-
-        }
     }
     public void setCommand(int slot, Command onCommand, Command offCommand) {
         onCommands[slot] = onCommand;
@@ -22,11 +17,14 @@ public class RemoteControl {
     }
     public void onButtonWasPressed(int slot) {
         onCommands[slot].execute();
+        undoCommand = offCommands[slot];
     }
     public void offButtonWasPressed(int slot) {
         offCommands[slot].execute();
+        undoCommand = onCommands[slot];
+
     }
     public void undoButtonWasPressed() {
-
+        undoCommand.undo();
     }
 }
